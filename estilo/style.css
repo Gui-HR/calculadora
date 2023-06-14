@@ -43,6 +43,7 @@ main {
 }
 
 #conta {
+    height: 24px;
     font-size: 20px;
     text-align: end;
 }
@@ -57,7 +58,9 @@ main {
 
 #resultado {
     width: 233px;
+    height: 37px;
     text-align: end;
+    padding-left: 8px;
 }
 
 #teclado {
