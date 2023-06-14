@@ -1,0 +1,22 @@
+const ce = document.querySelector('#ce')
+const c = document.querySelector('#c')
+const porcentagem = document.querySelector('#porcentagem')
+const divisao = document.querySelector('#divisao')
+const numero7 = document.querySelector('#numero-7')
+const numero8 = document.querySelector('#numero-8')
+const numero9 = document.querySelector('#numero-9')
+const multiplicacao = document.querySelector('#multiplicacao')
+const numero4 = document.querySelector('#numero-4')
+const numero5 = document.querySelector('#numero-5')
+const numero6 = document.querySelector('#numero-6')
+const subtracao = document.querySelector('#subtracao')
+const numero1 = document.querySelector('#numero-1')
+const numero2 = document.querySelector('#numero-2')
+const numero3= document.querySelector('#numero-3')
+const adicao = document.querySelector('#adicao')
+const parenteses = document.querySelector('#parenteses')
+const numero0 = document.querySelector('#numero-0')
+const igual = document.querySelector('#igual')
+
+
+

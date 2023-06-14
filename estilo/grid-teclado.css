@@ -1,0 +1,90 @@
+#teclado {
+    display: grid;
+
+    grid-template-areas: 
+    'ce c porcentagem divisao'
+    'numero-7 numero-8 numero-9 multiplicacao'
+    'numero-4 numero-5 numero-6 subtracao'
+    'numero-1 numero-2 numero-3 adicao'
+    'parenteses numero-0 virgula igual';
+}
+
+#ce {
+    grid-area: ce;
+}
+
+#c {
+    grid-area: c;
+}
+
+#porcentagem {
+    grid-area: porcentagem;
+}
+
+#divisao {
+    grid-area: divisao;
+}
+
+#multiplicacao {
+    grid-area: multiplicacao;
+}
+
+#adicao {
+    grid-area: adicao;
+}
+
+#subtracao {
+    grid-area: subtracao;
+}
+
+#virgula {
+    grid-area: virgula;
+}
+
+#parenteses {
+    grid-area: parenteses;
+}
+
+#igual {
+    grid-area: igual;
+}
+
+#numero-0 {
+    grid-area: numero-0;
+}
+
+#numero-1 {
+    grid-area: numero-1;
+}
+
+#numero-2 {
+    grid-area: numero-2;
+}
+
+#numero-3 {
+    grid-area: numero-3;
+}
+
+#numero-4 {
+    grid-area: numero-4;
+}
+
+#numero-5 {
+    grid-area: numero-5;
+}
+
+#numero-6 {
+    grid-area: numero-6;
+}
+
+#numero-7 {
+    grid-area: numero-7;
+}
+
+#numero-8 {
+    grid-area: numero-8;
+}
+
+#numero-9 {
+    grid-area: numero-9;
+}

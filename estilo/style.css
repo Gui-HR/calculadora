@@ -1,0 +1,90 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
+* {
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+    font-family: 'Roboto', sans-serif;
+    font-weight: bold;
+    font-size: 30px;
+}
+
+body, html {
+    height: 100vh;
+}
+
+body {
+    background: url(../img/pexels-philippe-donn-1169754.jpg) no-repeat center center / cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+main {
+    width: 356px;
+    height: 569px;
+    background-color: #2D2A37;
+    border-radius: 48px;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25), 0px 188px 52px rgba(0, 0, 0, 0.01), 0px 120px 48px rgba(0, 0, 0, 0.04), 0px 68px 41px rgba(0, 0, 0, 0.15), 0px 30px 30px rgba(0, 0, 0, 0.26), 0px 8px 17px rgba(0, 0, 0, 0.29), inset 0px 6px 8px rgba(255, 255, 255, 0.1), inset 0px -4px 5px rgba(0, 0, 0, 0.22);
+    padding: 54px 32px 32px 32px;
+}
+
+#calculo {
+    width: 288px;
+    height: 86px;
+    background-color: rgb(93, 151, 106);
+    color: rgb(60, 87, 66);
+    border-radius: 10px;
+    box-shadow: inset 5px 5px 10px rgba(0, 0, 0, 0.507);
+    margin-bottom: 26px;
+    display: flex;
+    flex-direction: column;
+    padding: 15px 20px;
+}
+
+#conta {
+    font-size: 20px;
+    text-align: end;
+}
+
+#aaa {
+    display: flex;
+}
+
+#resultado-igual {
+    width: 15px;
+}
+
+#resultado {
+    width: 233px;
+    text-align: end;
+}
+
+#teclado {
+    width: 292px;
+    height: 368px;
+    background-color: #2D2A37;
+}
+
+.botao {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0.05) 0%, rgba(255, 255, 255, 0.05) 100%), #2D2A37;
+    box-shadow: 0px 11px 7px rgba(0, 0, 0, 0.01), 0px 7px 7px rgba(0, 0, 0, 0.04), 0px 4px 6px rgba(0, 0, 0, 0.1), 0px 2px 4px rgba(0, 0, 0, 0.26), 0px 0px 2px rgba(0, 0, 0, 0.29), inset 0px 2px 3px rgba(255, 255, 255, 0.06);
+    color: #EBEBEB;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#ce {
+    color: #975DFA;
+}
+.operacao {
+background: linear-gradient(180deg, rgba(0, 0, 0, 0.05) 0.01%, rgba(255, 255, 255, 0.05) 100%), #462878;
+}
+
+#igual {
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0.15) 0%, rgba(255, 255, 255, 0.05) 100%), #7F45E2;
+}
