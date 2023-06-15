@@ -29,10 +29,6 @@ const resultado = document.querySelector('#resultado')
 var calculo =  []
 var valor = 0
  
-// for (let i = 0; i <= 9; i++ ) {
-//     numeros.push(numero(i))
-// }
- 
 for (i in numeros){
     let posicao = i
     numeros[i].addEventListener('click', () => {
@@ -76,10 +72,51 @@ multiplicacao.addEventListener('click', () => {
     calculo.push('x')
 })
 
+function limpaArray () {
+    calculo[1] = ''
+    calculo[2] = ''
+    calculo = calculo.filter((v) => {
+        return v
+    })
+}
+
 igual.addEventListener('click', () => {
     calculo.push(valor)
     valor = 0
+    console.log(calculo.length);
     console.log(calculo);
+
+    for(let i = 0; i <= (calculo.length); i++){
+
+        switch (calculo[1]) {
+            case '+':
+                calculo[0] = String(Number(calculo[0]) + Number(calculo[2]))
+                limpaArray ()
+                break;
+    
+            case '-':
+                calculo[0] = String(Number(calculo[0]) - Number(calculo[2]))
+                limpaArray ()
+                break;
+    
+            case 'x':
+                calculo[0] = String(Number(calculo[0]) * Number(calculo[2]))
+                limpaArray ()
+
+                break;
+    
+            case '/':
+                calculo[0] = String(Number(calculo[0]) / Number(calculo[2]))
+                limpaArray ()
+                break;
+        
+            default:
+                break;
+        }
+        console.log(calculo);
+    }
+
+    resultado.innerHTML = calculo[0]
 })
 
 
@@ -90,7 +127,8 @@ igual.addEventListener('click', () => {
 
     Ideias:
     - Para fazer o parenteses criar uma variavel auxiliar e usar um if, se o botão for apertado uma vez vai colocar "(" se for apertado pela segunda vez vai colocar ")".
-    - Usar um array para armazenar os valores e sinais, depois usar switch e case para realizar as contas. Armazenar o valor escolhido quando apertar o botão de sinal.
+    - Usar um array para armazenar os valores e sinais, depois usar switch e case para realizar as contas. Armazenar o valor escolhido quando apertar o botão de sinal. 
+    - Para calculara o resultado, usar find() para saber quantas contas precisamos executar, um switch case dentro de um for detro de um if para calcular todas as contas independente de quantas operações sejam feitas.
 */
 
 
