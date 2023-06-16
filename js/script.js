@@ -29,12 +29,29 @@ const resultado = document.querySelector('#resultado')
 var calculo =  []
 var valor = 0
 var quantasContas
+var digitosApagar = []
+var concatenaApagar = []
+
+function apagar () {
+    for(let i = 1; i <= (digitosApagar.length - 1); i++) {
+        digitosApagar[0] += digitosApagar[i]
+        digitosApagar[i] = ''
+    }
+
+    digitosApagar = digitosApagar.filter((v) => {
+        return v
+    })
+
+    concatenaApagar.push(digitosApagar[0])
+    digitosApagar = []
+}
  
 for (i in numeros){
     let posicao = i
     numeros[i].addEventListener('click', () => {
         conta.innerHTML += numeros[posicao].textContent
         valor += numeros[posicao].textContent
+        digitosApagar.push(numeros[posicao].textContent)
     })
 }
 
@@ -43,6 +60,17 @@ ce.addEventListener('click', () => {
     resultado.innerHTML = ''
     valor = 0
     calculo = []
+    digitosApagar = []
+    concatenaApagar = []
+})
+
+c.addEventListener('click', () => {
+    console.log(digitosApagar);
+    digitosApagar.pop()
+    conta.innerHTML = ''
+    for(i of digitosApagar) {
+        conta.innerHTML += i
+    }
 })
 
 adicao.addEventListener('click', () => {
@@ -50,6 +78,9 @@ adicao.addEventListener('click', () => {
     conta.innerHTML += '+'
     valor = 0
     calculo.push('+')
+    apagar()
+    concatenaApagar.push('+')
+    console.log(concatenaApagar);
 })
 
 subtracao.addEventListener('click', () => {
@@ -57,6 +88,8 @@ subtracao.addEventListener('click', () => {
     conta.innerHTML += '-'
     valor = 0
     calculo.push('-')
+    apagar()
+    concatenaApagar.push('-')
 })
 
 divisao.addEventListener('click', () => {
@@ -64,6 +97,8 @@ divisao.addEventListener('click', () => {
     conta.innerHTML += '/'
     valor = 0
     calculo.push('/')
+    apagar()
+    concatenaApagar.push('/')
 })
 
 multiplicacao.addEventListener('click', () => {
@@ -71,6 +106,8 @@ multiplicacao.addEventListener('click', () => {
     conta.innerHTML += 'x'
     valor = 0
     calculo.push('x')
+    apagar()
+    concatenaApagar.push('x')
 })
 
 function limpaArray () {
@@ -87,11 +124,15 @@ igual.addEventListener('click', () => {
     calculo = calculo.filter((v) => {
         return v
     })
+
     quantasContas = (calculo.length / 2) + .5
+
+    console.log(calculo);
 
     for(let i = 0; i <= quantasContas; i++){
 
         console.log(calculo);
+
 
         switch (calculo[1]) {
             case '+':
@@ -134,7 +175,7 @@ igual.addEventListener('click', () => {
     Ideias:
     - Para fazer o parenteses criar uma variavel auxiliar e usar um if, se o botão for apertado uma vez vai colocar "(" se for apertado pela segunda vez vai colocar ")".
     - Para o botao de parenteses colocar as contas dentro dele em um array separado, e realizar essas contas antes, depois mandar o resultado para a posição correta.
-    - Para fazer o apagar funcionar criar uma variável auxiliar, que armazena os valores e quando apagar a apaga dessa variavel.
+    - Para fazer o apagar funcionar criar uma variável auxiliar, que armazena os valores e apaga apagar dessa variavel. Quando o usuário apertar o numero ele vai armazenar digito por digito no 'array secundario', dessa forma se apertar no botão apagar ele vai apagar apenas o ultimo dígito, mas isso muda apos apertar em um sinal de operação, o sinal de operação fará com que concatene todos os digitos e envie para a ultima posição do 'array principal', e botao de operação tambem vai enviar para a ultima posição 'array principal' o seu sinal de operação. (depois disso quando apertar o botão de apagar ele vai apagar todo o numero salvo e não só um digito dele. Posso usar outro array 'auxiliar secundario' para armazenar os digitos e a 'auxiliar principal' para armazenar os numeros completos)
 
 
     Feito:
