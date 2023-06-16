@@ -31,8 +31,12 @@ var valor = 0
 var quantasContas
 var digitosApagar = []
 var concatenaApagar = []
+var printApagar = []
+var digitosNumero = 0
 
+// Funções
 function apagar () {
+
     for(let i = 1; i <= (digitosApagar.length - 1); i++) {
         digitosApagar[0] += digitosApagar[i]
         digitosApagar[i] = ''
@@ -43,15 +47,33 @@ function apagar () {
     })
 
     concatenaApagar.push(digitosApagar[0])
+
     digitosApagar = []
+}
+
+function operadores (operador) {
+    calculo.push(valor)
+    conta.innerHTML += operador
+    valor = 0
+    calculo.push(operador)
+    apagar()
+    concatenaApagar.push(operador)
+
+    conta.innerHTML = ''
+    for(let i = 0; i <= (concatenaApagar.length - 1); i++) {
+        conta.innerHTML += concatenaApagar[i]
+    }
+
+    digitosNumero = 0
 }
  
 for (i in numeros){
     let posicao = i
     numeros[i].addEventListener('click', () => {
-        conta.innerHTML += numeros[posicao].textContent
         valor += numeros[posicao].textContent
+        conta.innerHTML += numeros[posicao].textContent
         digitosApagar.push(numeros[posicao].textContent)
+        digitosNumero += 1
     })
 }
 
@@ -62,52 +84,66 @@ ce.addEventListener('click', () => {
     calculo = []
     digitosApagar = []
     concatenaApagar = []
+    printApagar = []
 })
 
 c.addEventListener('click', () => {
-    console.log(digitosApagar);
-    digitosApagar.pop()
-    conta.innerHTML = ''
-    for(i of digitosApagar) {
-        conta.innerHTML += i
+    console.log(digitosApagar)
+
+    if(digitosApagar[0] == undefined) {
+        console.log('if concatenaApagar: ' + concatenaApagar)
+        concatenaApagar.pop()
+        console.log('if concatenaApagar: ' + concatenaApagar)
+
+        conta.innerHTML = ''
+        for(i of concatenaApagar) {
+            conta.innerHTML += i
+        }
+
+    } else {
+        digitosApagar.pop()
+
+        printApagar = [...conta.innerHTML]
+        console.log(printApagar);
+
+        for(let i = 0; i<= (digitosNumero - 1); i++) {
+            printApagar.pop()
+        }
+
+        digitosNumero = digitosNumero - 1
+        console.log(digitosNumero);
+        console.log(printApagar);
+        
+        conta.innerHTML = ''
+        
+        for(i of printApagar) {
+            conta.innerHTML += i
+        }
+
+        for(i of digitosApagar) {
+            conta.innerHTML += i
+        }
+
+        console.log('else digitosApagar ' + digitosApagar)
     }
+
+    
 })
 
 adicao.addEventListener('click', () => {
-    calculo.push(valor)
-    conta.innerHTML += '+'
-    valor = 0
-    calculo.push('+')
-    apagar()
-    concatenaApagar.push('+')
-    console.log(concatenaApagar);
+    operadores('+')
 })
 
 subtracao.addEventListener('click', () => {
-    calculo.push(valor)
-    conta.innerHTML += '-'
-    valor = 0
-    calculo.push('-')
-    apagar()
-    concatenaApagar.push('-')
+    operadores('-')
 })
 
 divisao.addEventListener('click', () => {
-    calculo.push(valor)
-    conta.innerHTML += '/'
-    valor = 0
-    calculo.push('/')
-    apagar()
-    concatenaApagar.push('/')
+    operadores('/')
 })
 
 multiplicacao.addEventListener('click', () => {
-    calculo.push(valor)
-    conta.innerHTML += 'x'
-    valor = 0
-    calculo.push('x')
-    apagar()
-    concatenaApagar.push('x')
+    operadores('x')
 })
 
 function limpaArray () {
@@ -131,7 +167,7 @@ igual.addEventListener('click', () => {
 
     for(let i = 0; i <= quantasContas; i++){
 
-        console.log(calculo);
+        console.log(calculo)
 
 
         switch (calculo[1]) {
