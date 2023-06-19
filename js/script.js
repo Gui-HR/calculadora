@@ -161,38 +161,61 @@ igual.addEventListener('click', () => {
 
     for(let i = 0; i <= quantasContas; i++){
 
-        console.log(calculo)
-        console.log(valor)
+        console.log(calculo);
+
+        calculo.findIndex((operador, posicao) => {
+            if(operador == 'x') {
+
+                console.log(operador);
+                console.log(posicao);
+                console.log(calculo[posicao - 1]);
+                console.log(calculo[posicao]);
+                console.log(calculo[posicao + 1]);
+
+                calculo[posicao - 1] = String(Number(calculo[(posicao - 1)]) * Number(calculo[(posicao + 1)]))
+                calculo[posicao] = ''
+                calculo[(posicao + 1)] = ''
 
 
-        switch (calculo[1]) {
-            case '+':
-                calculo[0] = String(Number(calculo[0]) + Number(calculo[2]))
-                limpaArray ()
-                break
-    
-            case '-':
-                calculo[0] = String(Number(calculo[0]) - Number(calculo[2]))
-                limpaArray ()
-                break
-    
-            case 'x':
-                calculo[0] = String(Number(calculo[0]) * Number(calculo[2]))
-                limpaArray ()
-                break
-    
-            case '/':
-                calculo[0] = String(Number(calculo[0]) / Number(calculo[2]))
-                limpaArray ()
-                break
+                calculo = calculo.filter((v) => {
+                    return v
+                })
+            } else if(operador == '/') {
+                console.log(operador);
+                console.log(posicao);
+                console.log(calculo[posicao - 1]);
+                console.log(calculo[posicao]);
+                console.log(calculo[posicao + 1]);
 
-            case '%':
-                calculo[0] = String((Number(calculo[0]) / 100) * Number(calculo[2]))
-                limpaArray ()
-                break
+                calculo[posicao - 1] = String(Number(calculo[(posicao - 1)]) / Number(calculo[(posicao + 1)]))
+                calculo[posicao] = ''
+                calculo[(posicao + 1)] = ''
+
+                calculo = calculo.filter((v) => {
+                    return v
+                })
+            } else {
+
+                switch (calculo[1]) {
+                    case '+':
+                        calculo[0] = String(Number(calculo[0]) + Number(calculo[2]))
+                        limpaArray ()
+                        break
+            
+                    case '-':
+                        calculo[0] = String(Number(calculo[0]) - Number(calculo[2]))
+                        limpaArray ()
+                        break
         
-            default:
-        }
+                    case '%':
+                        calculo[0] = String((Number(calculo[0]) / 100) * Number(calculo[2]))
+                        limpaArray ()
+                        break
+                
+                    default:
+                }
+            }
+        })
     }
 
     resultado.innerHTML = calculo[0]
@@ -201,14 +224,13 @@ igual.addEventListener('click', () => {
 
 /*
     Fazer:
-    - Funcionar usando o teclado.
     - As operações seguirem a ordem correta.
-    - Arrumar a telinha dos calculos para caber todos os numeros.
-    - Botao de porcentagem funcionar.
     - Botao de parenteses funcionar.
+    - Arrumar a telinha dos calculos para caber todos os numeros.
+    - Funcionar usando o teclado.
     
     Ideias:
-    - As operações seguirem a ordem correta. (Para as operações seguirem a ordem certa podemos, usar um find() para identificar aonde tem os operadores que possuem prioridade, pegar o a posição desses operadores e usando essa posição pegar a posição dos números vizinhos para fazer a conta, depois fazer o procedimento normal para as contas)
+    - As operações seguirem a ordem correta. (Para as operações seguirem a ordem certa podemos usar um find() para identificar aonde tem os operadores que possuem prioridade, pegar o a posição desses operadores e usando essa posição pegar a posição dos números vizinhos para fazer a conta, depois fazer o procedimento normal para as contas)
     - Para fazer o parenteses criar uma variavel auxiliar e usar um if, se o botão for apertado uma vez vai colocar "(" se for apertado pela segunda vez vai colocar ")".
     - Para o botao de parenteses colocar as contas dentro dele em um array separado, e realizar essas contas antes, depois mandar o resultado para a posição correta.
     
@@ -221,6 +243,7 @@ igual.addEventListener('click', () => {
     - Botao de apagar funcionar.
     - Para fazer o apagar funcionar criar uma variável auxiliar, que armazena os valores e apaga apagar dessa variavel. Quando o usuário apertar o numero ele vai armazenar digito por digito no 'array secundario', dessa forma se apertar no botão apagar ele vai apagar apenas o ultimo dígito, mas isso muda apos apertar em um sinal de operação, o sinal de operação fará com que concatene todos os digitos e envie para a ultima posição do 'array principal', e botao de operação tambem vai enviar para a ultima posição 'array principal' o seu sinal de operação, depois disso quando apertar o botão de apagar ele vai apagar todo o numero salvo e não só um digito dele. Posso usar outro array 'auxiliar secundario' para armazenar os digitos e a 'auxiliar principal' para armazenar os numeros completos.
     - Botao de ponto funcionar.
+    - Botao de porcentagem funcionar.
     */
    
 
