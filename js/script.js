@@ -33,6 +33,7 @@ var quantasContas
 var printApagar = []
 var digitosNumero = 0
 var ordemOperacoes
+var ordemOperacoesPosicao
 
 // Funções
 function apagar () {
@@ -64,6 +65,34 @@ function operadores (operador) {
     }
 
     digitosNumero = 0
+}
+
+function operações (operador) {
+    ordemOperacoes = calculo.some(sinal => sinal == operador)
+    
+    if(ordemOperacoes) {
+        for(let i = 0; i <= quantasContas; i++){
+           ordemOperacoesPosicao =  calculo.findIndex(posicao => posicao == operador)
+
+            if(ordemOperacoesPosicao != -1){  
+                if(operador == 'x'){
+                    calculo[ordemOperacoesPosicao - 1] = String(Number(calculo[ordemOperacoesPosicao - 1]) * Number(calculo[ordemOperacoesPosicao + 1]))
+                } else if(operador == '/') {
+                    calculo[ordemOperacoesPosicao - 1] = String(Number(calculo[ordemOperacoesPosicao - 1]) / Number(calculo[ordemOperacoesPosicao + 1]))
+                }
+                calculo[ordemOperacoesPosicao] = ''
+                calculo[ordemOperacoesPosicao + 1] = ''
+                
+                calculo = calculo.filter((v) => {
+                    return v
+                })
+
+                ordemOperacoesPosicao = false
+            } else {
+                break
+            }
+        }
+    }
 }
  
 for (i in numeros){
@@ -163,75 +192,31 @@ igual.addEventListener('click', () => {
     
     console.log(calculo);
 
-    for(let i = 0; i <= quantasContas; i++){
-        ordemOperacoes = calculo.some(sinal => sinal == 'x')
-        
-        if(ordemOperacoes) {
-            calculo.findIndex((sinal, posicao) => {
-                if(sinal == 'x'){
-                    console.log(sinal);
-                    console.log(posicao);
-                    console.log(calculo[posicao-1]);
-                    console.log(calculo[posicao]);
-                    console.log(calculo[posicao+1]);
-                    
-                    calculo[posicao - 1] = String(Number(calculo[posicao - 1]) * Number(calculo[posicao + 1]))
-                    calculo[posicao] = ''
-                    calculo[posicao + 1] = ''
-                    
-                    calculo = calculo.filter((v) => {
-                        return v
-                    })
-                }
-            })
-            ordemOperacoes = 0
-        }
-    }
+    operações('x')
 
+    operações('/')
+    
     for(let i = 0; i <= quantasContas; i++){
-        ordemOperacoes = calculo.some(sinal => sinal == '/')
+        console.log(calculo);
+
+        switch (calculo[1]) {
+            case '+':
+                calculo[0] = String(Number(calculo[0]) + Number(calculo[2]))
+                limpaArray ()
+                break
+    
+            case '-':
+                calculo[0] = String(Number(calculo[0]) - Number(calculo[2]))
+                limpaArray ()
+                break
+
+            case '%':
+                calculo[0] = String((Number(calculo[0]) / 100) * Number(calculo[2]))
+                limpaArray ()
+                break
         
-        if(ordemOperacoes) {
-            calculo.findIndex((sinal, posicao) => {
-                if(sinal == '/'){
-                    console.log(sinal);
-                    console.log(posicao);
-                    console.log(calculo[posicao-1]);
-                    console.log(calculo[posicao]);
-                    console.log(calculo[posicao+1]);
-                    
-                    calculo[posicao - 1] = String(Number(calculo[posicao - 1]) / Number(calculo[posicao + 1]))
-                    calculo[posicao] = ''
-                    calculo[posicao + 1] = ''
-                    
-                    calculo = calculo.filter((v) => {
-                        return v
-                    })
-                }
-            })
-            ordemOperacoes = 0
+            default:
         }
-    }
-    
-    for(let i = 0; i <= quantasContas; i++){
-            switch (calculo[1]) {
-                case '+':
-                    calculo[0] = String(Number(calculo[0]) + Number(calculo[2]))
-                    limpaArray ()
-                    break
-        
-                case '-':
-                    calculo[0] = String(Number(calculo[0]) - Number(calculo[2]))
-                    limpaArray ()
-                    break
-    
-                case '%':
-                    calculo[0] = String((Number(calculo[0]) / 100) * Number(calculo[2]))
-                    limpaArray ()
-                    break
-            
-                default:
-            }
     }
 
     resultado.innerHTML = calculo[0]
@@ -261,5 +246,6 @@ igual.addEventListener('click', () => {
     - Botao de ponto funcionar.
     - Botao de porcentagem funcionar.
     */
+
    
 
