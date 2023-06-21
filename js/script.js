@@ -37,6 +37,7 @@ var ordemOperacoesPosicao
 var qualParenteses = '('
 var parentesesEsquerdo
 var parentesesDireito
+var dentroParenteses = []
 
 // Funções
 function apagar () {
@@ -57,12 +58,20 @@ function apagar () {
     valor = []
 }
 
-function limpaArray () {
-    calculo[1] = ''
-    calculo[2] = ''
-    calculo = calculo.filter((v) => {
-        return v
-    })
+function limpaArray (array) {
+    if(array == calculo) {
+        calculo[1] = ''
+        calculo[2] = ''
+        calculo = calculo.filter((v) => {
+            return v
+        })
+    }else if(array == dentroParenteses) {
+        dentroParenteses[2] = ''
+        dentroParenteses[3] = ''
+        dentroParenteses = dentroParenteses.filter((v) => {
+            return v
+        })
+    }
 }
 
 function operadores (operador) {
@@ -92,27 +101,30 @@ function operadores (operador) {
     digitosNumero = 0
 }
 
-function operações (operador) {
-    ordemOperacoes = calculo.some(sinal => sinal == operador)
+function operações (operador, array) {
+    ordemOperacoes = array.some(sinal => sinal == operador)
     
     if(ordemOperacoes) {
         for(let i = 0; i <= quantasContas; i++){
-           ordemOperacoesPosicao =  calculo.findIndex(posicao => posicao == operador)
+           ordemOperacoesPosicao =  array.findIndex(posicao => posicao == operador)
 
             if(ordemOperacoesPosicao != -1){  
                 if(operador == '%'){
-                    calculo[ordemOperacoesPosicao - 1] = String((Number(calculo[ordemOperacoesPosicao - 1]) / 100) * Number(calculo[ordemOperacoesPosicao + 1]))
+                    array[ordemOperacoesPosicao - 1] = String((Number(array[ordemOperacoesPosicao - 1]) / 100) * Number(array[ordemOperacoesPosicao + 1]))
                 } else if(operador == 'x'){
-                    calculo[ordemOperacoesPosicao - 1] = String(Number(calculo[ordemOperacoesPosicao - 1]) * Number(calculo[ordemOperacoesPosicao + 1]))
+                    array[ordemOperacoesPosicao - 1] = String(Number(array[ordemOperacoesPosicao - 1]) * Number(array[ordemOperacoesPosicao + 1]))
                 } else if(operador == '/') {
-                    calculo[ordemOperacoesPosicao - 1] = String(Number(calculo[ordemOperacoesPosicao - 1]) / Number(calculo[ordemOperacoesPosicao + 1]))
+                    array[ordemOperacoesPosicao - 1] = String(Number(array[ordemOperacoesPosicao - 1]) / Number(array[ordemOperacoesPosicao + 1]))
                 }
-                calculo[ordemOperacoesPosicao] = ''
-                calculo[ordemOperacoesPosicao + 1] = ''
+
+                array[ordemOperacoesPosicao] = ''
+                array[ordemOperacoesPosicao + 1] = ''
                 
-                calculo = calculo.filter((v) => {
+                array = array.filter((v) => {
                     return v
                 })
+
+                console.log(array);
 
                 ordemOperacoesPosicao = false
             } else {
@@ -129,31 +141,50 @@ function ContaParenteses () {
         parentesesEsquerdo =  calculo.findIndex(posicao => posicao == '(')
         parentesesDireito =  calculo.findIndex(posicao => posicao == ')')
 
-        let dentroParenteses = []
-
         for(let i = parentesesEsquerdo; i <= parentesesDireito; i++) {
             dentroParenteses.push(calculo[i])
         }
 
         console.log(dentroParenteses);
 
-        // if(ordemOperacoesPosicao != -1){  
-        //     if(operador == '%'){
-        //         calculo[ordemOperacoesPosicao - 1] = String((Number(calculo[ordemOperacoesPosicao - 1]) / 100) * Number(calculo[ordemOperacoesPosicao + 1]))
-        //     } else if(operador == 'x'){
-        //         calculo[ordemOperacoesPosicao - 1] = String(Number(calculo[ordemOperacoesPosicao - 1]) * Number(calculo[ordemOperacoesPosicao + 1]))
-        //     } else if(operador == '/') {
-        //         calculo[ordemOperacoesPosicao - 1] = String(Number(calculo[ordemOperacoesPosicao - 1]) / Number(calculo[ordemOperacoesPosicao + 1]))
-        //     }
-        //     calculo[ordemOperacoesPosicao] = ''
-        //     calculo[ordemOperacoesPosicao + 1] = ''
-            
-        //     calculo = calculo.filter((v) => {
-        //         return v
-        //     })
+        operações('%', dentroParenteses)
+        operações('x', dentroParenteses)
+        operações('/', dentroParenteses)
 
-        //     ordemOperacoesPosicao = false
-        // }
+        for(let i = 0; i <= quantasContas; i++){
+        console.log(dentroParenteses);
+            switch (dentroParenteses[2]) {
+                case '+':
+                    dentroParenteses[1] = String(Number(dentroParenteses[1]) + Number(dentroParenteses[3]))
+                    limpaArray (dentroParenteses)
+                    break
+
+                case '-':
+                    dentroParenteses[1] = String(Number(dentroParenteses[1]) - Number(dentroParenteses[3]))
+                    limpaArray (dentroParenteses)
+                    break
+            
+                default:
+            }
+
+            if(dentroParenteses.length == 3) {
+                console.log(calculo);
+                calculo[parentesesEsquerdo] = dentroParenteses[1]
+                console.log(dentroParenteses[1]);
+                console.log(calculo);
+
+                for(let i = (parentesesEsquerdo + 1); i <= parentesesDireito; i++) {
+                    calculo[i] = ''
+                }
+
+                calculo = calculo.filter((v) => {
+                    return v
+                })
+
+                console.log(calculo);
+                break
+            }
+        }
     }
 }
 
@@ -180,6 +211,14 @@ ce.addEventListener('click', () => {
     calculo = []
     valor = []
     printApagar = []
+    qualParenteses = '('
+    quantasContas = ''
+    digitosNumero = 0
+    ordemOperacoes = ''
+    ordemOperacoesPosicao = ''
+    parentesesEsquerdo = ''
+    parentesesDireito = ''
+    dentroParenteses = []
 })
 
 c.addEventListener('click', () => {
@@ -250,31 +289,32 @@ igual.addEventListener('click', () => {
     quantasContas = (calculo.length / 2) + .5
 
     ContaParenteses()
+    operações('%', calculo)
+    operações('x', calculo)
+    operações('/', calculo)
 
-    operações('%')
-
-    operações('x')
-
-    operações('/')
-    
     for(let i = 0; i <= quantasContas; i++){
         console.log(calculo);
+        limpaArray(calculo)
 
         switch (calculo[1]) {
             case '+':
                 calculo[0] = String(Number(calculo[0]) + Number(calculo[2]))
-                limpaArray ()
+                limpaArray (calculo)
                 break
     
             case '-':
                 calculo[0] = String(Number(calculo[0]) - Number(calculo[2]))
-                limpaArray ()
+                limpaArray (calculo)
                 break
         
             default:
         }
-    }
 
+        if(calculo.length == 1){
+            break
+        }
+    }
     resultado.innerHTML = calculo[0]
 })
 
