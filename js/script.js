@@ -112,22 +112,9 @@ function operações (operador) {
                 if(operador == '%'){
                     calculo[ordemOperacoesPosicao - 1] = String((Number(calculo[ordemOperacoesPosicao - 1]) / 100) * Number(calculo[ordemOperacoesPosicao + 1]))
                 } else if(operador == 'x'){
-                    console.log('operador x ' + calculo);
-                    console.log('calculo ' + calculo);
-                    console.log('calculo posicção 1 ' + calculo[ordemOperacoesPosicao - 1]);
-                    console.log('calculo operador ' + calculo[ordemOperacoesPosicao]);
-                    console.log('calculo posicção 2 ' + calculo[ordemOperacoesPosicao + 1]);
-
                     calculo[ordemOperacoesPosicao - 1] = String(Number(calculo[ordemOperacoesPosicao - 1]) * Number(calculo[ordemOperacoesPosicao + 1]))
-                    console.log('operador x ' + calculo);
-                    console.log('calculo ' + calculo);
-                    console.log('calculo posicção 1 ' + calculo[ordemOperacoesPosicao - 1]);
-                    console.log('calculo operador ' + calculo[ordemOperacoesPosicao]);
-                    console.log('calculo posicção 2 ' + calculo[ordemOperacoesPosicao + 1]);
                 } else if(operador == '/') {
-                    console.log('operador / ' + calculo);
                     calculo[ordemOperacoesPosicao - 1] = String(Number(calculo[ordemOperacoesPosicao - 1]) / Number(calculo[ordemOperacoesPosicao + 1]))
-                    console.log('operador / ' + calculo);
                 }
 
                 calculo[ordemOperacoesPosicao] = ''
@@ -137,11 +124,54 @@ function operações (operador) {
                     return v
                 })
 
-                console.log(calculo);
+                ordemOperacoesPosicao = false
+            } else {
+                break
+            }
+        }
+    }
+}
+
+function operaçõesParenteses (operador) {
+    ordemOperacoes = dentroParenteses.some(sinal => sinal == operador)
+    
+    if(ordemOperacoes) {
+        for(let i = 0; i <= quantasContas; i++){
+           ordemOperacoesPosicao =  dentroParenteses.findIndex(posicao => posicao == operador)
+
+            if(ordemOperacoesPosicao != -1){  
+                if(operador == '%'){
+                    dentroParenteses[ordemOperacoesPosicao - 1] = String((Number(dentroParenteses[ordemOperacoesPosicao - 1]) / 100) * Number(dentroParenteses[ordemOperacoesPosicao + 1]))
+                } else if(operador == 'x'){
+                    console.log('operador x ' + dentroParenteses);
+                    console.log('dentroParenteses ' + dentroParenteses);
+                    console.log('dentroParenteses posicção 1 ' + dentroParenteses[ordemOperacoesPosicao - 1]);
+                    console.log('dentroParenteses operador ' + dentroParenteses[ordemOperacoesPosicao]);
+                    console.log('dentroParenteses posicção 2 ' + dentroParenteses[ordemOperacoesPosicao + 1]);
+
+                    dentroParenteses[ordemOperacoesPosicao - 1] = String(Number(dentroParenteses[ordemOperacoesPosicao - 1]) * Number(dentroParenteses[ordemOperacoesPosicao + 1]))
+                    console.log('operador x ' + dentroParenteses);
+                    console.log('dentroParenteses ' + dentroParenteses);
+                    console.log('dentroParenteses posicção 1 ' + dentroParenteses[ordemOperacoesPosicao - 1]);
+                    console.log('dentroParenteses operador ' + dentroParenteses[ordemOperacoesPosicao]);
+                    console.log('dentroParenteses posicção 2 ' + dentroParenteses[ordemOperacoesPosicao + 1]);
+                } else if(operador == '/') {
+                    console.log('operador / ' + dentroParenteses);
+                    dentroParenteses[ordemOperacoesPosicao - 1] = String(Number(dentroParenteses[ordemOperacoesPosicao - 1]) / Number(dentroParenteses[ordemOperacoesPosicao + 1]))
+                    console.log('operador / ' + dentroParenteses);
+                }
+
+                dentroParenteses[ordemOperacoesPosicao] = ''
+                dentroParenteses[ordemOperacoesPosicao + 1] = ''
+                
+                dentroParenteses = dentroParenteses.filter((v) => {
+                    return v
+                })
+
+                console.log(dentroParenteses);
 
                 ordemOperacoesPosicao = false
             } else {
-                console.log(calculo);
                 break
             }
         }
@@ -162,9 +192,9 @@ function ContaParenteses () {
 
         console.log(dentroParenteses);
 
-        operações('%', dentroParenteses)
-        operações('x', dentroParenteses)
-        operações('/', dentroParenteses)
+        operaçõesParenteses('%')
+        operaçõesParenteses('x')
+        operaçõesParenteses('/')
 
         for(let i = 0; i <= quantasContas; i++){
         console.log(dentroParenteses);
@@ -191,6 +221,8 @@ function ContaParenteses () {
                 for(let i = (parentesesEsquerdo + 1); i <= parentesesDireito; i++) {
                     calculo[i] = ''
                 }
+
+                console.log(calculo);
 
                 calculo = calculo.filter((v) => {
                     return v
@@ -301,41 +333,25 @@ igual.addEventListener('click', () => {
         return v
     })
 
-    console.log(calculo);
-
     quantasContas = (calculo.length / 2) + .5
 
     ContaParenteses()
     operações('%', calculo)
-    console.log(calculo);
     operações('x', calculo)
-    console.log(calculo);
     operações('/', calculo)
-    console.log(calculo);
 
-// O problema esta aqui
     for(let i = 0; i <= quantasContas; i++){
         console.log(calculo);
-        console.log('i = ' + i);
-        // limpaArray(calculo)
 
         switch (calculo[1]) {
             case '+':
-                console.log(calculo[1]);
-                console.log(calculo);
                 calculo[0] = String(Number(calculo[0]) + Number(calculo[2]))
-                console.log(calculo);
                 limpaArray (calculo)
-                console.log(calculo);
                 break
     
             case '-':
-                console.log(calculo[1]);
-                console.log(calculo);
                 calculo[0] = String(Number(calculo[0]) - Number(calculo[2]))
-                console.log(calculo);
                 limpaArray (calculo)
-                console.log(calculo);
                 break
         
             default:
