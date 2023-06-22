@@ -38,6 +38,8 @@ var qualParenteses = '('
 var parentesesEsquerdo
 var parentesesDireito
 var dentroParenteses = []
+var calculoCopia = []
+var maisConta
 
 // Funções
 function apagar () {
@@ -99,6 +101,8 @@ function operadores (operador) {
     }
 
     digitosNumero = 0
+
+    maisConta = 0
 }
 
 function operações (operador) {
@@ -243,6 +247,18 @@ for (i in numeros){
         conta.innerHTML += numeros[posicao].textContent
         valor.push(numeros[posicao].textContent)
         digitosNumero += 1
+        if(maisConta == 1){
+            console.log(calculoCopia);
+            console.log(calculoCopia.length - 1);
+            valor.unshift(calculoCopia[calculoCopia.length - 1])
+            console.log(valor);
+            calculoCopia.pop()
+            console.log(calculoCopia);
+            calculo = calculoCopia
+            console.log(calculo);
+            calculoCopia = []
+            maisConta = 0
+        }
     })
 }
 
@@ -266,6 +282,7 @@ ce.addEventListener('click', () => {
     parentesesEsquerdo = ''
     parentesesDireito = ''
     dentroParenteses = []
+    calculoCopia = []
 })
 
 c.addEventListener('click', () => {
@@ -333,6 +350,9 @@ igual.addEventListener('click', () => {
         return v
     })
 
+    calculoCopia = calculo
+    console.log(calculoCopia);
+    maisConta = 1
     quantasContas = (calculo.length / 2) + .5
 
     ContaParenteses()
@@ -367,16 +387,22 @@ igual.addEventListener('click', () => {
 /*  Tarefas
 
     Fazer:
-    - Botao de parenteses funcionar.
+    - Arrumar o apagar.
     - Arrumar a telinha dos calculos para caber todos os numeros.
     - Funcionar usando o teclado.
     
     Ideias:
-    - Parênteses. (Usar algumas variáveis: uma para saber qual sinal vai colocar '(' ou  ')', uma para  o some() para saber se tem parênteses na conta, duas para armazenar as posições dos sinais) 
-    - Para fazer o parenteses criar uma variavel auxiliar e usar um if, se o botão for apertado uma vez vai colocar "(" se for apertado pela segunda vez vai colocar ")".
-    - Para o botao de parenteses colocar as contas dentro dele em um array separado, e realizar essas contas antes, depois mandar o resultado para a posição correta.
+    ['12', '+', '6']
+    ['18', '6']
+    ['18', '6']
     
-    
+    - calculoCopia ta recebendo o calculo ja resolvido de alguma forma desconhecida -------------------------------------------
+
+    - Deixar salva toda a conta em uma variável. :)
+    - Ter uma variável auxiliar para saber quando usar e conta "bruta", essa variável seria ativda apénas em determinada situação (Quando o usuario já fez a conta e quer adicionar mais algum dígito no número.) :)
+    - Para fazera verificação da variavel de ativação usar um if. :)
+
+
     Feito:
     - Um jeito de armazenar o valor digitado (não pode ser assim que aperta o botão do dígito, pois o usuário pode querer um número com mais de 1 dígito).
     - Um jeito para armazenar os sinais das contas, para só realizar as contas quando apertar o '='.
@@ -386,9 +412,5 @@ igual.addEventListener('click', () => {
     - Botao de ponto funcionar.
     - Botao de porcentagem funcionar.
     - As operações seguirem a ordem correta.(Para as operações seguirem a ordem certa podemos usar um find() para identificar aonde tem os operadores que possuem prioridade, pegar o a posição desses operadores e usando essa posição pegar a posição dos números vizinhos para fazer a conta, depois fazer o procedimento normal para as contas)
-
-
+    - Botao de parenteses funcionar. (Usar algumas variáveis: uma para saber qual sinal vai colocar '(' ou  ')', uma para o some() para saber se tem parênteses na conta, duas para armazenar as posições dos sinais. Usar um if, se o botão for apertado uma vez vai colocar "(" se for apertado pela segunda vez vai colocar ")". Colocar as contas dentro dele em um array separado, e realizar essas contas antes, depois mandar o resultado para a posição do "abre parênteses".)
     */
-
-   
-
