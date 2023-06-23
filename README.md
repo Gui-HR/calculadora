@@ -1,11 +1,13 @@
 # calculadora
  Projeto de calculadora com Javascript
 
+PROJETO FINALIZADO!
+
 TAREFAS: 
 Aqui temos algumas tarefas que fui colocando durante o projeto, essas tarefas foram colocadas na sessão "Fazer" e em ordem de prioridade, assim que uma tarefa tivesse concluida ela era movida para a sessão "Feito". A sessão de ideias é aonde escrevi as ideias que tive para resolver as tarefas durante o projeto, assim que uma tarefa vai para a sessão "Feito" coloquei a ideia para resolve-la entre parênteses ao lado da mesma.
 
 A Fazer:
-- Funcionar usando o teclado. 
+
 
 Ideias:
 
@@ -33,3 +35,5 @@ Feito:
 - Se a conta tiver 2 parênteses. (Usar um for para exeutar a função mais de uma vez.)
 
 - Arrumar a telinha dos calculos para caber todos os numeros.
+
+- Funcionar usando o teclado. 
