@@ -38,6 +38,7 @@ var qualParenteses = '('
 var parentesesEsquerdo
 var parentesesDireito
 var dentroParenteses = []
+var quantosParenteses = 0
 var calculoCopia = []
 var maisConta
 
@@ -95,14 +96,23 @@ function operadores (operador) {
         calculo.push(operador)
     }
 
+    if(maisConta == 1) {
+        calculo = [...calculoCopia]
+            calculoCopia = []
+            maisConta = 0
+
+        conta.innerHTML += operador
+        apagar()
+        calculo.push(operador)
+    }
+
+
     conta.innerHTML = ''
     for(let i = 0; i <= (calculo.length - 1); i++) {
         conta.innerHTML += calculo[i]
     }
 
     digitosNumero = 0
-
-    maisConta = 0
 }
 
 function operações (operador) {
@@ -147,22 +157,9 @@ function operaçõesParenteses (operador) {
                 if(operador == '%'){
                     dentroParenteses[ordemOperacoesPosicao - 1] = String((Number(dentroParenteses[ordemOperacoesPosicao - 1]) / 100) * Number(dentroParenteses[ordemOperacoesPosicao + 1]))
                 } else if(operador == 'x'){
-                    console.log('operador x ' + dentroParenteses);
-                    console.log('dentroParenteses ' + dentroParenteses);
-                    console.log('dentroParenteses posicção 1 ' + dentroParenteses[ordemOperacoesPosicao - 1]);
-                    console.log('dentroParenteses operador ' + dentroParenteses[ordemOperacoesPosicao]);
-                    console.log('dentroParenteses posicção 2 ' + dentroParenteses[ordemOperacoesPosicao + 1]);
-
                     dentroParenteses[ordemOperacoesPosicao - 1] = String(Number(dentroParenteses[ordemOperacoesPosicao - 1]) * Number(dentroParenteses[ordemOperacoesPosicao + 1]))
-                    console.log('operador x ' + dentroParenteses);
-                    console.log('dentroParenteses ' + dentroParenteses);
-                    console.log('dentroParenteses posicção 1 ' + dentroParenteses[ordemOperacoesPosicao - 1]);
-                    console.log('dentroParenteses operador ' + dentroParenteses[ordemOperacoesPosicao]);
-                    console.log('dentroParenteses posicção 2 ' + dentroParenteses[ordemOperacoesPosicao + 1]);
                 } else if(operador == '/') {
-                    console.log('operador / ' + dentroParenteses);
                     dentroParenteses[ordemOperacoesPosicao - 1] = String(Number(dentroParenteses[ordemOperacoesPosicao - 1]) / Number(dentroParenteses[ordemOperacoesPosicao + 1]))
-                    console.log('operador / ' + dentroParenteses);
                 }
 
                 dentroParenteses[ordemOperacoesPosicao] = ''
@@ -172,8 +169,6 @@ function operaçõesParenteses (operador) {
                     return v
                 })
 
-                console.log(dentroParenteses);
-
                 ordemOperacoesPosicao = false
             } else {
                 break
@@ -182,7 +177,6 @@ function operaçõesParenteses (operador) {
     }
 }
 
-// Com defeito
 function ContaParenteses () {
     ordemOperacoes = calculo.some(sinal => sinal == '(')
     
@@ -194,14 +188,11 @@ function ContaParenteses () {
             dentroParenteses.push(calculo[i])
         }
 
-        console.log(dentroParenteses);
-
         operaçõesParenteses('%')
         operaçõesParenteses('x')
         operaçõesParenteses('/')
 
         for(let i = 0; i <= quantasContas; i++){
-        console.log(dentroParenteses);
             switch (dentroParenteses[2]) {
                 case '+':
                     dentroParenteses[1] = String(Number(dentroParenteses[1]) + Number(dentroParenteses[3]))
@@ -217,30 +208,23 @@ function ContaParenteses () {
             }
 
             if(dentroParenteses.length == 3) {
-                console.log(calculo);
                 calculo[parentesesEsquerdo] = dentroParenteses[1]
-                console.log(dentroParenteses[1]);
-                console.log(calculo);
 
                 for(let i = (parentesesEsquerdo + 1); i <= parentesesDireito; i++) {
                     calculo[i] = ''
                 }
 
-                console.log(calculo);
-
                 calculo = calculo.filter((v) => {
                     return v
                 })
 
-                console.log(calculo);
                 break
             }
         }
     }
 }
 
-// Eventos de click
- 
+// Eventos de click 
 for (i in numeros){
     let posicao = i
     numeros[i].addEventListener('click', () => {
@@ -248,14 +232,9 @@ for (i in numeros){
         valor.push(numeros[posicao].textContent)
         digitosNumero += 1
         if(maisConta == 1){
-            console.log(calculoCopia);
-            console.log(calculoCopia.length - 1);
             valor.unshift(calculoCopia[calculoCopia.length - 1])
-            console.log(valor);
             calculoCopia.pop()
-            console.log(calculoCopia);
-            calculo = calculoCopia
-            console.log(calculo);
+            calculo = [...calculoCopia]
             calculoCopia = []
             maisConta = 0
         }
@@ -282,7 +261,9 @@ ce.addEventListener('click', () => {
     parentesesEsquerdo = ''
     parentesesDireito = ''
     dentroParenteses = []
+    qualParenteses = 0
     calculoCopia = []
+    maisConta = 0
 })
 
 c.addEventListener('click', () => {
@@ -293,6 +274,14 @@ c.addEventListener('click', () => {
         conta.innerHTML = ''
         for(i of calculo) {
             conta.innerHTML += i
+        }
+
+        let parentesesApagado = calculo.some(el => el == '(')
+
+        if(parentesesApagado){
+            if(qualParenteses == '('){
+                qualParenteses = ')'
+            }
         }
 
     } else {
@@ -315,6 +304,7 @@ c.addEventListener('click', () => {
         for(i of valor) {
             conta.innerHTML += i
         }
+
     }
 
     
@@ -342,6 +332,7 @@ multiplicacao.addEventListener('click', () => {
 
 parenteses.addEventListener('click', () => {
     operadores('()')
+    quantosParenteses ++
 })
 
 igual.addEventListener('click', () => {
@@ -350,18 +341,21 @@ igual.addEventListener('click', () => {
         return v
     })
 
-    calculoCopia = calculo
-    console.log(calculoCopia);
+    calculoCopia = [...calculo]
     maisConta = 1
     quantasContas = (calculo.length / 2) + .5
 
-    ContaParenteses()
+    for(let i = 0; i <= (quantosParenteses / 2); i++) {
+        ContaParenteses()
+        console.log(calculo);
+    }
     operações('%', calculo)
     operações('x', calculo)
     operações('/', calculo)
 
+    console.log(calculo);
+
     for(let i = 0; i <= quantasContas; i++){
-        console.log(calculo);
 
         switch (calculo[1]) {
             case '+':
@@ -382,26 +376,19 @@ igual.addEventListener('click', () => {
         }
     }
     resultado.innerHTML = calculo[0]
+    console.log(calculo);
 })
 
-/*  Tarefas
+/*  TAREFAS
 
     Fazer:
-    - Arrumar o apagar.
+    - Se a conta tiver 2 parênteses
     - Arrumar a telinha dos calculos para caber todos os numeros.
     - Funcionar usando o teclado.
     
     Ideias:
-    ['12', '+', '6']
-    ['18', '6']
-    ['18', '6']
-    
-    - calculoCopia ta recebendo o calculo ja resolvido de alguma forma desconhecida -------------------------------------------
 
-    - Deixar salva toda a conta em uma variável. :)
-    - Ter uma variável auxiliar para saber quando usar e conta "bruta", essa variável seria ativda apénas em determinada situação (Quando o usuario já fez a conta e quer adicionar mais algum dígito no número.) :)
-    - Para fazera verificação da variavel de ativação usar um if. :)
-
+    ---------------------Testar com dois parenteses pra ver como que tá ---------------------------------
 
     Feito:
     - Um jeito de armazenar o valor digitado (não pode ser assim que aperta o botão do dígito, pois o usuário pode querer um número com mais de 1 dígito).
@@ -413,4 +400,5 @@ igual.addEventListener('click', () => {
     - Botao de porcentagem funcionar.
     - As operações seguirem a ordem correta.(Para as operações seguirem a ordem certa podemos usar um find() para identificar aonde tem os operadores que possuem prioridade, pegar o a posição desses operadores e usando essa posição pegar a posição dos números vizinhos para fazer a conta, depois fazer o procedimento normal para as contas)
     - Botao de parenteses funcionar. (Usar algumas variáveis: uma para saber qual sinal vai colocar '(' ou  ')', uma para o some() para saber se tem parênteses na conta, duas para armazenar as posições dos sinais. Usar um if, se o botão for apertado uma vez vai colocar "(" se for apertado pela segunda vez vai colocar ")". Colocar as contas dentro dele em um array separado, e realizar essas contas antes, depois mandar o resultado para a posição do "abre parênteses".)
+    - Arrumar o apagar para quando o usuario já fez a conta e quer adicionar mais algum número, operação ou dígito no número. (Deixar salva toda a conta em uma variável. Ter uma variável auxiliar para saber quando usar e conta "bruta", essa variável seria ativda apénas em determinada situação (Quando o usuario já fez a conta e quer adicionar mais algum dígito no número.). Para fazera verificação da variavel de ativação usar um if.) 
     */
