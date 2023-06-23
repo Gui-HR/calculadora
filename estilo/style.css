@@ -39,13 +39,16 @@ main {
     margin-bottom: 26px;
     display: flex;
     flex-direction: column;
-    padding: 15px 20px;
+    padding: 12px 20px;
 }
 
 #conta {
-    height: 24px;
+    height: 39px;
     font-size: 20px;
     text-align: end;
+    border-bottom: 1px solid rgb(60, 87, 66);
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 #aaa {
@@ -61,6 +64,8 @@ main {
     height: 37px;
     text-align: end;
     padding-left: 8px;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 #teclado {
