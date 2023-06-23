@@ -228,13 +228,13 @@ function ContaParenteses () {
     }
 }
 
-function ponto () {
+function pontoFunction () {
     conta.innerHTML += '.'
     valor.push('.')
     digitosNumero += 1
 }
 
-function ceReset () {
+function ceFunction () {
     conta.innerHTML = ''
     resultado.innerHTML = ''
     calculo = []
@@ -253,33 +253,7 @@ function ceReset () {
     maisConta = 0
 }
 
-// Eventos de click 
-for (i in numeros){
-    let posicao = i
-    numeros[i].addEventListener('click', () => {
-        conta.innerHTML += numeros[posicao].textContent
-        valor.push(numeros[posicao].textContent)
-        digitosNumero += 1
-        if(maisConta == 1){
-            valor.unshift(calculoCopia[calculoCopia.length - 1])
-            calculoCopia.pop()
-            calculo = [...calculoCopia]
-            calculoCopia = []
-            maisConta = 0
-        }
-    })
-}
-
-ponto.addEventListener('click', () => {
-    ponto()
-})
-
-ce.addEventListener('click', () => {
-    ceReset()
-})
-
-c.addEventListener('click', () => {
-
+function cFunction () {
     if(valor[0] == undefined) {
         calculo.pop()
 
@@ -318,35 +292,9 @@ c.addEventListener('click', () => {
         }
 
     }
+}
 
-    
-})
-
-porcentagem.addEventListener('click', () => {
-    operadores('%')
-})
-
-adicao.addEventListener('click', () => {
-    operadores('+')
-})
-
-subtracao.addEventListener('click', () => {
-    operadores('-')
-})
-
-divisao.addEventListener('click', () => {
-    operadores('/')
-})
-
-multiplicacao.addEventListener('click', () => {
-    operadores('x')
-})
-
-parenteses.addEventListener('click', () => {
-    operadores('()')
-})
-
-igual.addEventListener('click', () => {
+function igualFunction () {
     apagar()
     calculo = calculo.filter((v) => {
         return v
@@ -384,4 +332,119 @@ igual.addEventListener('click', () => {
         }
     }
     resultado.innerHTML = calculo[0]
+}
+
+function digitosFuncition (numero) {
+    conta.innerHTML += numero
+    valor.push(numero)
+    digitosNumero += 1
+    if(maisConta == 1){
+        valor.unshift(calculoCopia[calculoCopia.length - 1])
+        calculoCopia.pop()
+        calculo = [...calculoCopia]
+        calculoCopia = []
+        maisConta = 0
+    }
+}
+
+// Eventos de key
+document.addEventListener('keyup', (event) => {
+    if(event.key === '0') {
+        digitosFuncition('0')
+    } else if(event.key === '1') {
+        digitosFuncition('1')
+    } else if(event.key === '2') {
+        digitosFuncition('2')
+    } else if(event.key === '3') {
+        digitosFuncition('3')
+    } else if(event.key === '4') {
+        digitosFuncition('4')
+    } else if(event.key === '5') {
+        digitosFuncition('5')
+    } else if(event.key === '6') {
+        digitosFuncition('6')
+    } else if(event.key === '7') {
+        digitosFuncition('7')
+    } else if(event.key === '8') {
+        digitosFuncition('8')
+    } else if(event.key === '9') {
+        digitosFuncition('9')
+    } else if(event.key === '.' || event.key === ',') {
+        pontoFunction()
+    } else if(event.key === '%') {
+        operadores('%')
+    } else if(event.key === '+') {
+        operadores('+')
+    } else if(event.key === '-') {
+        operadores('-')
+    } else if(event.key === 'x' || event.key === '*') {
+        operadores('x')
+    } else if(event.key === '/') {
+        operadores('/')
+    } else if(event.key === '(' || event.key === ')') {
+        operadores('()')
+    } else if(event.key === 'Backspace') {
+        cFunction()
+    } else if(event.key === 'Delete') {
+        ceFunction()
+    } else if(event.key === '=' || event.key === 'Enter') {
+        igualFunction()
+    }
+})
+
+// Eventos de click 
+for (i in numeros){
+    let posicao = i
+    numeros[i].addEventListener('click', () => {
+        conta.innerHTML += numeros[posicao].textContent
+        valor.push(numeros[posicao].textContent)
+        digitosNumero += 1
+        if(maisConta == 1){
+            valor.unshift(calculoCopia[calculoCopia.length - 1])
+            calculoCopia.pop()
+            calculo = [...calculoCopia]
+            calculoCopia = []
+            maisConta = 0
+        }
+    })
+}
+
+ponto.addEventListener('click', () => {
+    pontoFunction()
+})
+
+ce.addEventListener('click', () => {
+    ceFunction()
+})
+
+c.addEventListener('click', () => {
+    cFunction()
+})
+
+porcentagem.addEventListener('click', () => {
+    operadores('%')
+})
+
+adicao.addEventListener('click', () => {
+    operadores('+')
+})
+
+subtracao.addEventListener('click', () => {
+    operadores('-')
+})
+
+divisao.addEventListener('click', () => {
+    operadores('/')
+})
+
+multiplicacao.addEventListener('click', () => {
+    operadores('x')
+})
+
+parenteses.addEventListener('click', () => {
+    operadores('()')
+})
+
+igual.addEventListener('click', () => {
+   igualFunction()
 })
